@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ก้านมบูด | Modern Loft Style</title>
+    <meta name="description" content="ร้านก้านมบูด บรรยากาศสุดคูล สไตล์ Modern Loft พร้อมเสิร์ฟเมนูนมสดและของหวานแสนอร่อย สั่งเดลิเวอรี่ได้แล้ววันนี้">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        loft: {
+                            dark: '#121212',
+                            darker: '#0a0a0a',
+                            card: '#1e1e1e',
+                            brick: '#c14a09',
+                            brickHover: '#a03b06',
+                            wood: '#d28a4a',
+                            text: '#e0e0e0',
+                            muted: '#9ca3af'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: theme('colors.loft.dark');
+            color: theme('colors.loft.text');
+        }
+        
+        /* Custom Scrollbar for a more premium feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.loft.darker'); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.loft.card'); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.loft.brick'); 
+        }
+        
+        /* Image fallback script */
+        function imgError(image) {
+            image.onerror = "";
+            image.src = "https://placehold.co/600x400/1e1e1e/c14a09?text=Image+Not+Found";
+            return true;
+        }
+    </style>
+</head>
+<body class="antialiased font-sans">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-loft-darker/90 backdrop-blur-md border-b border-loft-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <img class="h-12 w-auto object-contain" src="./images/logo.png" alt="ก้านมบูด Logo" onerror="this.src='https://placehold.co/150x50/121212/c14a09?text=KA+NOM+BOOD'">
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#home" data-i18n="nav-home" class="text-loft-text hover:text-loft-brick transition-colors font-medium">หน้าหลัก</a>
+                    <a href="#menu" data-i18n="nav-menu" class="text-loft-text hover:text-loft-brick transition-colors font-medium">เมนู</a>
+                    <a href="#delivery" data-i18n="nav-delivery" class="text-loft-text hover:text-loft-brick transition-colors font-medium">เดลิเวอรี่</a>
+                    <a href="#contact" data-i18n="nav-contact" class="px-5 py-2 rounded-md bg-loft-card hover:bg-loft-brick text-white transition-all duration-300 font-medium border border-loft-card hover:border-transparent">ติดต่อเรา</a>
+                    
+                    <!-- Language Toggle -->
+                    <div class="flex items-center ml-4 border-l border-loft-muted pl-4">
+                        <button onclick="setLanguage('th')" id="btn-th" class="text-white font-bold mr-2 hover:text-loft-brick transition-colors">TH</button>
+                        <span class="text-loft-muted">|</span>
+                        <button onclick="setLanguage('en')" id="btn-en" class="text-white font-bold ml-2 opacity-50 hover:opacity-100 hover:text-loft-brick transition-all">EN</button>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <!-- Mobile Language Toggle -->
+                    <div class="flex items-center">
+                        <button onclick="setLanguage('th')" id="btn-th-mob" class="text-white font-bold text-sm mr-1 hover:text-loft-brick transition-colors">TH</button>
+                        <span class="text-loft-muted text-sm">|</span>
+                        <button onclick="setLanguage('en')" id="btn-en-mob" class="text-white font-bold text-sm ml-1 opacity-50 hover:opacity-100 transition-all">EN</button>
+                    </div>
+                    <button id="mobile-menu-button" class="text-loft-text hover:text-loft-brick focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-loft-darker border-t border-loft-card">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="#home" data-i18n="nav-home" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">หน้าหลัก</a>
+                <a href="#menu" data-i18n="nav-menu" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">เมนู</a>
+                <a href="#delivery" data-i18n="nav-delivery" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">เดลิเวอรี่</a>
+                <a href="#contact" data-i18n="nav-contact" class="block px-3 py-2 text-base font-medium text-loft-brick">ติดต่อเรา</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center">
+        <!-- Background Image with Overlay -->
+        <div class="absolute inset-0 z-0">
+            <img src="./images/atmosphere.jpg" alt="บรรยากาศร้าน ก้านมบูด" class="w-full h-full object-cover object-center" onerror="this.src='https://placehold.co/1920x1080/121212/1e1e1e?text=Atmosphere'">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-loft-dark"></div>
+        </div>
+        
+        <!-- Content -->
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+            <h2 data-i18n="hero-subtitle" class="text-loft-brick font-medium tracking-widest uppercase mb-3 text-sm md:text-base">Premium Fresh Milk Cafe</h2>
+            <h1 data-i18n="hero-title" class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg">ก้านมบูด</h1>
+            <p data-i18n="hero-desc" class="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed">
+                ดื่มด่ำกับนมสดแท้ 100% และขนมปังปิ้งเตาถ่านหอมกรุ่น<br class="hidden md:block"> ในบรรยากาศสุดคูลสไตล์ Modern Loft ที่ให้ความรู้สึกดิบแต่แฝงด้วยความอบอุ่น
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <a href="#delivery" data-i18n="hero-delivery" class="px-8 py-4 text-lg font-semibold rounded bg-loft-brick text-white hover:bg-loft-brickHover transition-all transform hover:scale-105 shadow-lg flex items-center gap-2 w-full sm:w-auto justify-center">
+                    <i class="fas fa-motorcycle"></i> สั่งเดลิเวอรี่เลย!
+                </a>
+                <a href="#menu" data-i18n="hero-menu" class="px-8 py-4 text-lg font-semibold rounded bg-transparent border-2 border-loft-text text-loft-text hover:bg-loft-text hover:text-loft-dark transition-all w-full sm:w-auto justify-center flex items-center">
+                    ดูเมนูของเรา
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
+            <a href="#menu" class="text-loft-muted hover:text-white transition-colors">
+                <i class="fas fa-chevron-down text-2xl"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Menu Highlight Section -->
+    <section id="menu" class="py-24 bg-loft-dark relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 data-i18n="menu-subtitle" class="text-loft-brick font-medium tracking-widest uppercase mb-2">Our Signature</h2>
+                <h3 data-i18n="menu-title" class="text-3xl md:text-4xl font-bold text-white mb-4">เมนูแนะนำ</h3>
+                <div class="w-24 h-1 bg-loft-brick mx-auto rounded"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Menu Item 1 -->
+                <div class="bg-loft-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-loft-card hover:border-loft-wood/30 shadow-lg">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./images/menu_pinkmilk.jpg" alt="นมชมพูเย็น" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/c14a09?text=Menu+1'">
+                        <div class="absolute top-4 right-4 bg-loft-brick text-white px-3 py-1 rounded-full text-sm font-semibold shadow">Recommend</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 data-i18n="menu-1-title" class="text-xl font-bold text-white group-hover:text-loft-wood transition-colors">นมชมพูเย็น (Signature)</h4>
+                            <span class="text-loft-brick font-bold text-lg">฿45</span>
+                        </div>
+                        <p data-i18n="menu-1-desc" class="text-loft-muted text-sm line-clamp-2">นมโคแท้ผสมน้ำหวานเฮลซ์บลูบอย หอมหวานละมุน ชื่นใจคลายร้อน</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 2 -->
+                <div class="bg-loft-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-loft-card hover:border-loft-wood/30 shadow-lg">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./images/menu_shavedice.jpg" alt="ปังเย็นภูเขาไฟ" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/c14a09?text=Menu+2'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 data-i18n="menu-2-title" class="text-xl font-bold text-white group-hover:text-loft-wood transition-colors">ปังเย็นภูเขาไฟ</h4>
+                            <span class="text-loft-brick font-bold text-lg">฿89</span>
+                        </div>
+                        <p data-i18n="menu-2-desc" class="text-loft-muted text-sm line-clamp-2">น้ำแข็งไสเนื้อเนียนละเอียด ราดนมสดและเครื่องเน้นๆ ท็อปปิ้งล้นๆ สายหวานต้องโดน</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 3 -->
+                <div class="bg-loft-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-loft-card hover:border-loft-wood/30 shadow-lg">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./images/menu_jamtoast.jpg" alt="ปังปิ้งแยมส้ม" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/c14a09?text=Menu+3'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 data-i18n="menu-3-title" class="text-xl font-bold text-white group-hover:text-loft-wood transition-colors">ปังปิ้งแยมส้ม</h4>
+                            <span class="text-loft-brick font-bold text-lg">฿35</span>
+                        </div>
+                        <p data-i18n="menu-3-desc" class="text-loft-muted text-sm line-clamp-2">ขนมปังปิ้งเตาถ่านจนกรอบนอกนุ่มใน ทาด้วยแยมส้มเปรี้ยวอมหวานอย่างลงตัว</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 4 -->
+                <div class="bg-loft-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-loft-card hover:border-loft-wood/30 shadow-lg">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./images/menu_choctoast.jpg" alt="ปังปิ้งช็อกโกแลต" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/c14a09?text=Menu+4'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 data-i18n="menu-4-title" class="text-xl font-bold text-white group-hover:text-loft-wood transition-colors">ปังปิ้งช็อกโกแลต</h4>
+                            <span class="text-loft-brick font-bold text-lg">฿40</span>
+                        </div>
+                        <p data-i18n="menu-4-desc" class="text-loft-muted text-sm line-clamp-2">ขนมปังปิ้งร้อนๆ ราดซอสช็อกโกแลตเข้มข้นฉ่ำๆ ถูกใจคนรักช็อกโกแลต</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 5 -->
+                <div class="bg-loft-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-loft-card hover:border-loft-wood/30 shadow-lg">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./images/menu_fries.jpg" alt="เฟรนช์ฟรายส์ทอด" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/c14a09?text=Menu+5'">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 data-i18n="menu-5-title" class="text-xl font-bold text-white group-hover:text-loft-wood transition-colors">เฟรนช์ฟรายส์ทอด</h4>
+                            <span class="text-loft-brick font-bold text-lg">฿59</span>
+                        </div>
+                        <p data-i18n="menu-5-desc" class="text-loft-muted text-sm line-clamp-2">เฟรนช์ฟรายส์ทอดกรอบสีเหลืองทอง เสิร์ฟร้อนๆ ทานเล่นเพลินๆ คู่กับเครื่องดื่ม</p>
+                    </div>
+                </div>
+
+                <!-- Menu Item 6 -->
+                <div class="bg-loft-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300 border border-loft-card hover:border-loft-wood/30 shadow-lg">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./images/menu_nuggets.jpg" alt="นักเก็ตไก่ทอด" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1e1e1e/c14a09?text=Menu+6'">
+                        <div class="absolute top-4 right-4 bg-loft-wood text-white px-3 py-1 rounded-full text-sm font-semibold shadow">Best Seller</div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h4 data-i18n="menu-6-title" class="text-xl font-bold text-white group-hover:text-loft-wood transition-colors">นักเก็ตไก่ทอด</h4>
+                            <span class="text-loft-brick font-bold text-lg">฿59</span>
+                        </div>
+                        <p data-i18n="menu-6-desc" class="text-loft-muted text-sm line-clamp-2">นักเก็ตไก่เนื้อแน่น ทอดจนกรอบนอกนุ่มใน อร่อยเต็มคำ ทานคู่กับซอสสุดพิเศษ</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-16 text-center">
+                <button data-i18n="menu-btn" class="px-8 py-3 rounded-full border border-loft-text text-white hover:bg-white hover:text-loft-dark transition-all duration-300 font-medium">
+                    ดูเมนูทั้งหมด
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delivery Section -->
+    <section id="delivery" class="py-20 relative overflow-hidden bg-loft-darker border-y border-loft-card">
+        <!-- Abstract background elements for Loft style -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-loft-brick/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div class="absolute bottom-0 left-0 w-96 h-96 bg-loft-wood/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+        
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-loft-card/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 shadow-2xl border border-loft-card flex flex-col md:flex-row items-center justify-between gap-10">
+                <div class="text-center md:text-left flex-1">
+                    <h3 class="text-3xl md:text-4xl font-bold text-white mb-4"><span data-i18n="del-title1">หิวไหม?</span> <span data-i18n="del-title2" class="text-loft-brick">สั่งเลย!</span></h3>
+                    <p data-i18n="del-desc" class="text-loft-muted text-lg mb-6">อยู่บ้านก็ฟินได้! พร้อมส่งความอร่อย สดชื่น ถึงหน้าบ้านคุณ ผ่านแอปพลิเคชันที่คุณคุ้นเคย</p>
+                    <div class="flex items-center justify-center md:justify-start gap-4 text-sm text-loft-text">
+                        <div data-i18n="del-f1" class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> ส่งไว</div>
+                        <div data-i18n="del-f2" class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> แพ็คอย่างดี</div>
+                        <div data-i18n="del-f3" class="flex items-center gap-2"><i class="fas fa-check-circle text-green-500"></i> อร่อยเหมือนทานที่ร้าน</div>
+                    </div>
+                </div>
+                
+                <div class="flex-1 w-full grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    <!-- Grab Delivery -->
+                    <a href="#" class="bg-white hover:bg-gray-100 flex flex-col items-center justify-center py-4 px-2 rounded-xl transition-transform hover:-translate-y-1 shadow-md group">
+                        <div class="w-12 h-12 rounded-full bg-[#00B14F] flex items-center justify-center text-white text-2xl font-bold mb-2 group-hover:scale-110 transition-transform">
+                            G
+                        </div>
+                        <span class="text-gray-900 font-bold text-sm">GrabFood</span>
+                    </a>
+                    
+                    <!-- LINE MAN -->
+                    <a href="#" class="bg-white hover:bg-gray-100 flex flex-col items-center justify-center py-4 px-2 rounded-xl transition-transform hover:-translate-y-1 shadow-md group">
+                        <div class="w-12 h-12 rounded-full bg-[#00C300] flex items-center justify-center text-white text-2xl font-bold mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fab fa-line"></i>
+                        </div>
+                        <span class="text-gray-900 font-bold text-sm">LINE MAN</span>
+                    </a>
+                    
+                    <!-- Robinhood -->
+                    <a href="#" class="bg-white hover:bg-gray-100 flex flex-col items-center justify-center py-4 px-2 rounded-xl transition-transform hover:-translate-y-1 shadow-md group">
+                        <div class="w-12 h-12 rounded-full bg-[#8224E3] flex items-center justify-center text-white text-xl font-bold mb-2 group-hover:scale-110 transition-transform">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <span class="text-gray-900 font-bold text-sm">Robinhood</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-loft-dark pt-16 pb-8 border-t border-loft-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-8 mb-12">
+                <!-- Brand Info -->
+                <div class="space-y-4">
+                    <img src="./images/logo.png" alt="ก้านมบูด Logo" class="h-16 w-auto object-contain mb-4" onerror="this.src='https://placehold.co/150x50/121212/c14a09?text=KA+NOM+BOOD'">
+                    <p data-i18n="foot-desc" class="text-loft-muted text-sm leading-relaxed">
+                        ร้านนมสดสไตล์ Modern Loft ที่คัดสรรวัตถุดิบคุณภาพดี เสิร์ฟความอร่อยในบรรยากาศชิลๆ เหมาะกับการพักผ่อนและพบปะเพื่อนฝูง
+                    </p>
+                    <div class="flex space-x-4 pt-2">
+                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-loft-card flex items-center justify-center text-white hover:bg-[#1877F2] hover:scale-110 transition-all">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-loft-card flex items-center justify-center text-white hover:bg-[#E1306C] hover:scale-110 transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-loft-card flex items-center justify-center text-white hover:bg-[#00C300] hover:scale-110 transition-all">
+                            <i class="fab fa-line text-lg"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contact & Hours -->
+                <div class="space-y-4">
+                    <h4 data-i18n="foot-contact" class="text-xl font-bold text-white mb-6 border-l-4 border-loft-brick pl-3">ติดต่อเรา</h4>
+                    <ul class="space-y-4 text-loft-muted">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-loft-brick"></i>
+                            <span data-i18n="foot-address">123 ถนนสุขุมวิท ซอย 55 แขวงคลองตันเหนือ<br>เขตวัฒนา กรุงเทพฯ 10110</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-phone-alt mr-3 text-loft-brick"></i>
+                            <span>080-123-4567</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-clock mt-1 mr-3 text-loft-brick"></i>
+                            <div>
+                                <span data-i18n="foot-hours-title" class="block text-white">เวลาเปิดให้บริการ:</span>
+                                <span data-i18n="foot-hours">ทุกวัน 16:00 - 23:30 น.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Map Placeholder -->
+                <div class="space-y-4">
+                    <h4 data-i18n="foot-map" class="text-xl font-bold text-white mb-6 border-l-4 border-loft-brick pl-3">แผนที่ร้าน</h4>
+                    <div class="w-full h-48 bg-loft-card rounded-lg overflow-hidden border border-loft-card hover:border-loft-muted transition-colors relative group cursor-pointer">
+                        <!-- Simulate Map Image -->
+                        <div class="absolute inset-0 bg-[#2a2a2a] flex items-center justify-center">
+                            <i class="fas fa-map text-4xl text-loft-dark"></i>
+                            <img src="https://placehold.co/400x300/1e1e1e/9ca3af?text=Google+Maps" alt="Map" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity">
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
+                            <span data-i18n="foot-map-btn" class="bg-white text-black px-4 py-2 rounded-full font-medium text-sm flex items-center gap-2 shadow-lg">
+                                <i class="fas fa-external-link-alt"></i> เปิดใน Google Maps
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-loft-card text-center flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-loft-muted text-sm">
+                    &copy; 2026 ก้านมบูด. All rights reserved.
+                </p>
+                <div class="text-loft-muted text-sm space-x-4">
+                    <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Translations & Interactivity Script -->
+    <script>
+        const translations = {
+            th: {
+                "nav-home": "หน้าหลัก",
+                "nav-menu": "เมนู",
+                "nav-delivery": "เดลิเวอรี่",
+                "nav-contact": "ติดต่อเรา",
+                "hero-subtitle": "Premium Fresh Milk Cafe",
+                "hero-title": "ก้านมบูด",
+                "hero-desc": "ดื่มด่ำกับนมสดแท้ 100% และขนมปังปิ้งเตาถ่านหอมกรุ่น<br class=\"hidden md:block\"> ในบรรยากาศสุดคูลสไตล์ Modern Loft ที่ให้ความรู้สึกดิบแต่แฝงด้วยความอบอุ่น",
+                "hero-delivery": "<i class=\"fas fa-motorcycle\"></i> สั่งเดลิเวอรี่เลย!",
+                "hero-menu": "ดูเมนูของเรา",
+                "menu-subtitle": "Our Signature",
+                "menu-title": "เมนูแนะนำ",
+                "menu-1-title": "นมชมพูเย็น (Signature)",
+                "menu-1-desc": "นมโคแท้ผสมน้ำหวานเฮลซ์บลูบอย หอมหวานละมุน ชื่นใจคลายร้อน",
+                "menu-2-title": "ปังเย็นภูเขาไฟ",
+                "menu-2-desc": "น้ำแข็งไสเนื้อเนียนละเอียด ราดนมสดและเครื่องเน้นๆ ท็อปปิ้งล้นๆ สายหวานต้องโดน",
+                "menu-3-title": "ปังปิ้งแยมส้ม",
+                "menu-3-desc": "ขนมปังปิ้งเตาถ่านจนกรอบนอกนุ่มใน ทาด้วยแยมส้มเปรี้ยวอมหวานอย่างลงตัว",
+                "menu-4-title": "ปังปิ้งช็อกโกแลต",
+                "menu-4-desc": "ขนมปังปิ้งร้อนๆ ราดซอสช็อกโกแลตเข้มข้นฉ่ำๆ ถูกใจคนรักช็อกโกแลต",
+                "menu-5-title": "เฟรนช์ฟรายส์ทอด",
+                "menu-5-desc": "เฟรนช์ฟรายส์ทอดกรอบสีเหลืองทอง เสิร์ฟร้อนๆ ทานเล่นเพลินๆ คู่กับเครื่องดื่ม",
+                "menu-6-title": "นักเก็ตไก่ทอด",
+                "menu-6-desc": "นักเก็ตไก่เนื้อแน่น ทอดจนกรอบนอกนุ่มใน อร่อยเต็มคำ ทานคู่กับซอสสุดพิเศษ",
+                "menu-btn": "ดูเมนูทั้งหมด",
+                "del-title1": "หิวไหม?",
+                "del-title2": "สั่งเลย!",
+                "del-desc": "อยู่บ้านก็ฟินได้! พร้อมส่งความอร่อย สดชื่น ถึงหน้าบ้านคุณ ผ่านแอปพลิเคชันที่คุณคุ้นเคย",
+                "del-f1": "<i class=\"fas fa-check-circle text-green-500\"></i> ส่งไว",
+                "del-f2": "<i class=\"fas fa-check-circle text-green-500\"></i> แพ็คอย่างดี",
+                "del-f3": "<i class=\"fas fa-check-circle text-green-500\"></i> อร่อยเหมือนทานที่ร้าน",
+                "foot-desc": "ร้านนมสดสไตล์ Modern Loft ที่คัดสรรวัตถุดิบคุณภาพดี เสิร์ฟความอร่อยในบรรยากาศชิลๆ เหมาะกับการพักผ่อนและพบปะเพื่อนฝูง",
+                "foot-contact": "ติดต่อเรา",
+                "foot-address": "123 ถนนสุขุมวิท ซอย 55 แขวงคลองตันเหนือ<br>เขตวัฒนา กรุงเทพฯ 10110",
+                "foot-hours-title": "เวลาเปิดให้บริการ:",
+                "foot-hours": "ทุกวัน 16:00 - 23:30 น.",
+                "foot-map": "แผนที่ร้าน",
+                "foot-map-btn": "<i class=\"fas fa-external-link-alt\"></i> เปิดใน Google Maps"
+            },
+            en: {
+                "nav-home": "Home",
+                "nav-menu": "Menu",
+                "nav-delivery": "Delivery",
+                "nav-contact": "Contact Us",
+                "hero-subtitle": "Premium Fresh Milk Cafe",
+                "hero-title": "KA NOM BOOD",
+                "hero-desc": "Enjoy 100% real fresh milk and charcoal-toasted bread<br class=\"hidden md:block\"> in a cool Modern Loft atmosphere that feels raw yet warm.",
+                "hero-delivery": "<i class=\"fas fa-motorcycle\"></i> Order Delivery!",
+                "hero-menu": "View Our Menu",
+                "menu-subtitle": "Our Signature",
+                "menu-title": "Recommended Menu",
+                "menu-1-title": "Pink Milk (Signature)",
+                "menu-1-desc": "Real cow's milk mixed with Hale's Blue Boy syrup. Sweet, fragrant, and refreshing.",
+                "menu-2-title": "Volcano Shaved Ice",
+                "menu-2-desc": "Fine shaved ice topped with fresh milk and overloaded toppings. A must for sweet lovers.",
+                "menu-3-title": "Orange Jam Toast",
+                "menu-3-desc": "Charcoal-toasted bread, crispy outside and soft inside, spread with perfectly sweet and sour orange jam.",
+                "menu-4-title": "Chocolate Toast",
+                "menu-4-desc": "Hot toast drizzled with rich and juicy chocolate sauce. A treat for chocolate lovers.",
+                "menu-5-title": "French Fries",
+                "menu-5-desc": "Golden crispy french fries served hot. Perfect for snacking with drinks.",
+                "menu-6-title": "Fried Chicken Nuggets",
+                "menu-6-desc": "Crispy and tender chicken nuggets served with our special sauce.",
+                "menu-btn": "View All Menu",
+                "del-title1": "Hungry?",
+                "del-title2": "Order Now!",
+                "del-desc": "Enjoy our deliciousness delivered straight to your door via your favorite delivery apps!",
+                "del-f1": "<i class=\"fas fa-check-circle text-green-500\"></i> Fast Delivery",
+                "del-f2": "<i class=\"fas fa-check-circle text-green-500\"></i> Well Packaged",
+                "del-f3": "<i class=\"fas fa-check-circle text-green-500\"></i> Same Great Taste",
+                "foot-desc": "A Modern Loft style milk cafe serving quality drinks and desserts in a chill atmosphere. Perfect for relaxing and meeting friends.",
+                "foot-contact": "Contact Us",
+                "foot-address": "123 Sukhumvit Rd, Soi 55, Khlong Tan Nuea<br>Watthana, Bangkok 10110",
+                "foot-hours-title": "Opening Hours:",
+                "foot-hours": "Everyday 16:00 - 23:30",
+                "foot-map": "Store Map",
+                "foot-map-btn": "<i class=\"fas fa-external-link-alt\"></i> Open in Google Maps"
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'th';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            
+            // Update active button state
+            document.getElementById('btn-th').classList.toggle('opacity-50', lang !== 'th');
+            document.getElementById('btn-en').classList.toggle('opacity-50', lang !== 'en');
+            document.getElementById('btn-th-mob').classList.toggle('opacity-50', lang !== 'th');
+            document.getElementById('btn-en-mob').classList.toggle('opacity-50', lang !== 'en');
+            
+            // Update texts
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+            
+            // Update HTML lang attribute
+            document.documentElement.lang = lang;
+        }
+
+        // Initialize language
+        setLanguage(currentLang);
+
+        // Mobile Menu Logic
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        const mobileLinks = menu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+            });
+        });
+
+        // Navbar blur on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 10) {
+                nav.classList.add('shadow-lg');
+            } else {
+                nav.classList.remove('shadow-lg');
+            }
+        });
+    </script>
+</body>
+</html>
