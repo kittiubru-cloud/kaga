@@ -343,16 +343,21 @@
                 <div class="space-y-4">
                     <h4 data-i18n="foot-map" class="text-xl font-bold text-white mb-6 border-l-4 border-loft-brick pl-3">แผนที่ร้าน</h4>
                     <div class="w-full h-48 bg-loft-card rounded-lg overflow-hidden border border-loft-card hover:border-loft-muted transition-colors relative group cursor-pointer">
-                        <!-- Simulate Map Image -->
-                        <div class="absolute inset-0 bg-[#2a2a2a] flex items-center justify-center">
-                            <i class="fas fa-map text-4xl text-loft-dark"></i>
-                            <img src="https://placehold.co/400x300/1e1e1e/9ca3af?text=Google+Maps" alt="Map" class="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity">
-                        </div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40">
-                            <span data-i18n="foot-map-btn" class="bg-white text-black px-4 py-2 rounded-full font-medium text-sm flex items-center gap-2 shadow-lg">
+                        <!-- Real Google Maps Embed -->
+                        <iframe 
+                            src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=123%20Sukhumvit%2055%20Bangkok&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            class="absolute inset-0 z-0 pointer-events-none group-hover:pointer-events-auto transition-all">
+                        </iframe>
+                        <a href="https://maps.google.com/maps?q=123%20Sukhumvit%2055%20Bangkok" target="_blank" rel="noopener noreferrer" class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 z-10">
+                            <span data-i18n="foot-map-btn" class="bg-white text-black px-4 py-2 rounded-full font-medium text-sm flex items-center gap-2 shadow-lg hover:bg-gray-200 transition-colors">
                                 <i class="fas fa-external-link-alt"></i> เปิดใน Google Maps
                             </span>
-                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
