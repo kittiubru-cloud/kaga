@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เมนู | นมสด รสนิยม</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Prompt', 'sans-serif'] },
+                    colors: {
+                        loft: {
+                            dark: '#121212', darker: '#0a0a0a', card: '#1e1e1e',
+                            brick: '#c14a09', brickHover: '#a03b06', wood: '#d28a4a',
+                            text: '#e0e0e0', muted: '#9ca3af'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: theme('colors.loft.dark'); color: theme('colors.loft.text'); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: theme('colors.loft.darker'); }
+        ::-webkit-scrollbar-thumb { background: theme('colors.loft.card'); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.loft.brick'); }
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-loft-darker/90 backdrop-blur-md border-b border-loft-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <img class="h-12 w-auto object-contain" src="./images/logo.png" alt="นมสด รสนิยม Logo" onerror="this.src='https://placehold.co/150x50/121212/c14a09?text=NOMSOD+ROSNIYOM'">
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-loft-text hover:text-loft-brick transition-colors font-medium">หน้าหลัก</a>
+                    <a href="menu.html" class="text-loft-brick font-medium border-b-2 border-loft-brick pb-1">เมนู</a>
+                    <a href="index.html#delivery" class="text-loft-text hover:text-loft-brick transition-colors font-medium">เดลิเวอรี่</a>
+                    <a href="booking.html" class="text-loft-text hover:text-loft-brick transition-colors font-medium">จองโต๊ะ</a>
+                    <a href="index.html#contact" class="px-5 py-2 rounded-md bg-loft-card hover:bg-loft-brick text-white transition-all duration-300 font-medium border border-loft-card hover:border-transparent">ติดต่อเรา</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-loft-text hover:text-loft-brick focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-loft-darker border-t border-loft-card">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="index.html" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">หน้าหลัก</a>
+                <a href="menu.html" class="block px-3 py-2 text-base font-medium text-loft-brick bg-loft-card/50">เมนู</a>
+                <a href="index.html#delivery" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">เดลิเวอรี่</a>
+                <a href="booking.html" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">จองโต๊ะ</a>
+                <a href="index.html#contact" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">ติดต่อเรา</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-32 pb-16 flex-grow">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 drop-shadow-lg"><span class="text-loft-brick">M</span>ENU</h1>
+                <p class="text-loft-muted text-lg">เมนูเครื่องดื่มและของหวาน สูตรเด็ดจาก นมสด รสนิยม</p>
+                <div class="w-24 h-1 bg-loft-brick mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="flex justify-center space-x-4 mb-12 overflow-x-auto pb-4 hide-scrollbar">
+                <button onclick="showCategory('milk')" id="btn-milk" class="px-6 py-2 rounded-full bg-loft-brick text-white font-medium whitespace-nowrap transition-all shadow-[0_0_15px_rgba(193,74,9,0.4)]">🥛 นมสด</button>
+                <button onclick="showCategory('toast')" id="btn-toast" class="px-6 py-2 rounded-full bg-loft-card text-loft-text hover:bg-gray-800 font-medium whitespace-nowrap transition-all">🍞 ขนมปังปิ้ง</button>
+                <button onclick="showCategory('dessert')" id="btn-dessert" class="px-6 py-2 rounded-full bg-loft-card text-loft-text hover:bg-gray-800 font-medium whitespace-nowrap transition-all">🍧 ของหวาน</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <!-- Milk Category -->
+            <div id="cat-milk" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500">
+                <!-- Item 1 -->
+                <div class="bg-loft-card rounded-2xl overflow-hidden shadow-xl border border-loft-darker hover:border-loft-brick/50 transition-all group">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/121212/c14a09?text=Fresh+Milk" alt="นมสดเย็น" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-loft-brick text-white font-bold px-3 py-1 rounded-lg">45.-</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">นมสดเย็น (Signature)</h3>
+                        <p class="text-loft-muted text-sm mb-4">นมสดแท้ 100% หอมมัน กลมกล่อม หวานกำลังดี</p>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="bg-loft-card rounded-2xl overflow-hidden shadow-xl border border-loft-darker hover:border-loft-brick/50 transition-all group">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/121212/c14a09?text=Pink+Milk" alt="นมชมพู" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-loft-brick text-white font-bold px-3 py-1 rounded-lg">50.-</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">นมชมพูเย็น</h3>
+                        <p class="text-loft-muted text-sm mb-4">นมสดผสมน้ำหวานเฮลซ์บลูบอย หอมหวานชื่นใจ</p>
+                    </div>
+                </div>
+                <!-- Item 3 -->
+                <div class="bg-loft-card rounded-2xl overflow-hidden shadow-xl border border-loft-darker hover:border-loft-brick/50 transition-all group">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/121212/c14a09?text=Caramel+Milk" alt="นมสดคาราเมล" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-loft-brick text-white font-bold px-3 py-1 rounded-lg">55.-</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">นมสดคาราเมล</h3>
+                        <p class="text-loft-muted text-sm mb-4">ความหอมของคาราเมลไซรัป ตัดกับความมันของนมสด</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Toast Category -->
+            <div id="cat-toast" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 opacity-0 translate-y-4">
+                <!-- Item 1 -->
+                <div class="bg-loft-card rounded-2xl overflow-hidden shadow-xl border border-loft-darker hover:border-loft-brick/50 transition-all group">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/121212/c14a09?text=Butter+Toast" alt="ปังปิ้งเนยนม" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-loft-brick text-white font-bold px-3 py-1 rounded-lg">25.-</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">ปังปิ้งเนยนม</h3>
+                        <p class="text-loft-muted text-sm mb-4">ขนมปังแผ่นหนา ปิ้งกรอบนอกนุ่มใน หอมเนยราดนมฉ่ำๆ</p>
+                    </div>
+                </div>
+                <!-- Item 2 -->
+                <div class="bg-loft-card rounded-2xl overflow-hidden shadow-xl border border-loft-darker hover:border-loft-brick/50 transition-all group">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/121212/c14a09?text=Pandan+Toast" alt="ปังปิ้งสังขยา" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-loft-brick text-white font-bold px-3 py-1 rounded-lg">30.-</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">ปังปิ้งสังขยาใบเตย</h3>
+                        <p class="text-loft-muted text-sm mb-4">สังขยาทำเอง หอมใบเตยแท้ ไม่หวานเลี่ยน</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dessert Category -->
+            <div id="cat-dessert" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-500 opacity-0 translate-y-4">
+                <!-- Item 1 -->
+                <div class="bg-loft-card rounded-2xl overflow-hidden shadow-xl border border-loft-darker hover:border-loft-brick/50 transition-all group">
+                    <div class="h-48 bg-gray-800 relative overflow-hidden">
+                        <img src="https://placehold.co/600x400/121212/c14a09?text=Pang+Yen" alt="ปังเย็นนมสด" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-loft-brick text-white font-bold px-3 py-1 rounded-lg">89.-</div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">ปังเย็นนมสด</h3>
+                        <p class="text-loft-muted text-sm mb-4">น้ำแข็งไสเกล็ดหิมะ ราดนมสดฉ่ำๆ พร้อมท็อปปิ้งล้นถ้วย</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Simple -->
+    <footer class="bg-loft-darker py-6 border-t border-loft-card text-center text-loft-muted text-sm">
+        <p>&copy; 2026 นมสด รสนิยม. All rights reserved.</p>
+    </footer>
+
+    <!-- Logic -->
+    <script>
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Category Toggle
+        function showCategory(catId) {
+            // Reset all buttons
+            const btns = ['milk', 'toast', 'dessert'];
+            btns.forEach(id => {
+                const button = document.getElementById(`btn-${id}`);
+                button.classList.remove('bg-loft-brick', 'text-white', 'shadow-[0_0_15px_rgba(193,74,9,0.4)]');
+                button.classList.add('bg-loft-card', 'text-loft-text');
+                
+                const section = document.getElementById(`cat-${id}`);
+                section.classList.add('hidden');
+                section.classList.remove('grid');
+                section.classList.remove('opacity-100', 'translate-y-0');
+                section.classList.add('opacity-0', 'translate-y-4');
+            });
+
+            // Set active button
+            const activeBtn = document.getElementById(`btn-${catId}`);
+            activeBtn.classList.remove('bg-loft-card', 'text-loft-text');
+            activeBtn.classList.add('bg-loft-brick', 'text-white', 'shadow-[0_0_15px_rgba(193,74,9,0.4)]');
+
+            // Show active section
+            const activeSection = document.getElementById(`cat-${catId}`);
+            activeSection.classList.remove('hidden');
+            activeSection.classList.add('grid');
+            
+            // Trigger reflow for animation
+            setTimeout(() => {
+                activeSection.classList.remove('opacity-0', 'translate-y-4');
+                activeSection.classList.add('opacity-100', 'translate-y-0');
+            }, 50);
+        }
+    </script>
+</body>
+</html>
