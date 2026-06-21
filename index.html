@@ -299,7 +299,7 @@
     <!-- Footer -->
     <footer id="contact" class="bg-loft-dark pt-16 pb-8 border-t border-loft-darker">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-8 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-12">
                 <!-- Brand Info -->
                 <div class="space-y-4">
                     <img src="./images/logo.png" alt="นมสด รสนิยม Logo" class="h-16 w-auto object-contain mb-4" onerror="this.src='https://placehold.co/150x50/121212/c14a09?text=NOMSOD+ROSNIYOM'">
@@ -339,6 +339,17 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+
+                <!-- Weather Widget -->
+                <div class="space-y-4">
+                    <h4 data-i18n="foot-weather" class="text-xl font-bold text-white mb-6 border-l-4 border-loft-brick pl-3">สภาพอากาศ</h4>
+                    <div class="w-full bg-loft-card rounded-lg overflow-hidden border border-loft-card hover:border-loft-muted transition-colors" style="min-height: 190px;">
+                        <a class="weatherwidget-io" href="https://forecast7.com/th/15d23104d86/ubon-ratchathani/" data-label_1="อุบลราชธานี" data-label_2="สภาพอากาศ" data-font="Prompt" data-theme="dark" data-basecolor="#1e1e1e" data-accent="#c14a09" data-textcolor="#e0e0e0" data-highcolor="#c14a09" data-lowcolor="#9ca3af" >อุบลราชธานี สภาพอากาศ</a>
+                        <script>
+                        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+                        </script>
+                    </div>
                 </div>
 
                 <!-- Map Placeholder -->
@@ -416,6 +427,7 @@
                 "foot-address": "บ้านเลขที่ 414 ม.10 ต.ขามใหญ่<br>อ.เมือง จ.อุบลราชธานี 34000",
                 "foot-hours-title": "เวลาเปิดให้บริการ:",
                 "foot-hours": "ทุกวัน 16:00 - 23:30 น.",
+                "foot-weather": "สภาพอากาศ",
                 "foot-map": "แผนที่ร้าน",
                 "foot-map-btn": "<i class=\"fas fa-external-link-alt\"></i> เปิดใน Google Maps"
             },
@@ -455,8 +467,9 @@
                 "foot-contact": "Contact Us",
                 "foot-address": "414 Moo 10, Kham Yai<br>Mueang, Ubon Ratchathani 34000",
                 "foot-hours-title": "Opening Hours:",
-                "foot-hours": "Everyday 16:00 - 23:30",
-                "foot-map": "Store Map",
+                "foot-hours": "Everyday 4:00 PM - 11:30 PM",
+                "foot-weather": "Weather",
+                "foot-map": "Location Map",
                 "foot-map-btn": "<i class=\"fas fa-external-link-alt\"></i> Open in Google Maps"
             }
         };
