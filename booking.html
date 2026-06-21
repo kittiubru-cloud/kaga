@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>จองโต๊ะ | นมสด รสนิยม</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Prompt', 'sans-serif'] },
+                    colors: {
+                        loft: {
+                            dark: '#121212', darker: '#0a0a0a', card: '#1e1e1e',
+                            brick: '#c14a09', brickHover: '#a03b06', wood: '#d28a4a',
+                            text: '#e0e0e0', muted: '#9ca3af'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: theme('colors.loft.dark'); color: theme('colors.loft.text'); }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: theme('colors.loft.darker'); }
+        ::-webkit-scrollbar-thumb { background: theme('colors.loft.card'); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: theme('colors.loft.brick'); }
+    </style>
+</head>
+<body class="antialiased font-sans flex flex-col min-h-screen">
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 bg-loft-darker/90 backdrop-blur-md border-b border-loft-card">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <img class="h-12 w-auto object-contain" src="./images/logo.png" alt="นมสด รสนิยม Logo" onerror="this.src='https://placehold.co/150x50/121212/c14a09?text=NOMSOD+ROSNIYOM'">
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="index.html" class="text-loft-text hover:text-loft-brick transition-colors font-medium">หน้าหลัก</a>
+                    <a href="index.html#menu" class="text-loft-text hover:text-loft-brick transition-colors font-medium">เมนู</a>
+                    <a href="index.html#delivery" class="text-loft-text hover:text-loft-brick transition-colors font-medium">เดลิเวอรี่</a>
+                    <a href="booking.html" class="text-loft-brick font-medium border-b-2 border-loft-brick pb-1">จองโต๊ะ</a>
+                    <a href="index.html#contact" class="px-5 py-2 rounded-md bg-loft-card hover:bg-loft-brick text-white transition-all duration-300 font-medium border border-loft-card hover:border-transparent">ติดต่อเรา</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-loft-text hover:text-loft-brick focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-loft-darker border-t border-loft-card">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 text-center">
+                <a href="index.html" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">หน้าหลัก</a>
+                <a href="index.html#menu" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">เมนู</a>
+                <a href="index.html#delivery" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">เดลิเวอรี่</a>
+                <a href="booking.html" class="block px-3 py-2 text-base font-medium text-loft-brick bg-loft-card/50">จองโต๊ะ</a>
+                <a href="index.html#contact" class="block px-3 py-2 text-base font-medium text-loft-text hover:text-loft-brick">ติดต่อเรา</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-32 pb-16 flex-grow">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl md:text-5xl font-bold text-white mb-3 text-center drop-shadow-lg">สำรองที่นั่งล่วงหน้า</h1>
+            <p class="text-loft-muted text-center mb-12 text-lg">เลือกระบุวันเวลาและจำนวนคน เพื่อดูสถานะโต๊ะที่ว่าง</p>
+
+            <!-- Search Form -->
+            <div class="bg-loft-card p-6 md:p-8 rounded-2xl shadow-xl mb-12 border border-loft-darker">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                        <label class="block text-sm font-medium text-loft-muted mb-2">วันที่ <i class="far fa-calendar-alt ml-1"></i></label>
+                        <input type="date" id="book-date" class="w-full bg-loft-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-loft-brick focus:ring-1 focus:ring-loft-brick transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-loft-muted mb-2">เวลา <i class="far fa-clock ml-1"></i></label>
+                        <input type="time" id="book-time" class="w-full bg-loft-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-loft-brick focus:ring-1 focus:ring-loft-brick transition-colors">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-loft-muted mb-2">จำนวนคน <i class="fas fa-user-friends ml-1"></i></label>
+                        <select id="book-pax" class="w-full bg-loft-dark border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-loft-brick focus:ring-1 focus:ring-loft-brick transition-colors appearance-none">
+                            <option value="1-2">1-2 ท่าน</option>
+                            <option value="3-4">3-4 ท่าน</option>
+                            <option value="5-6">5-6 ท่าน</option>
+                            <option value="7+">7 ท่านขึ้นไป</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <button onclick="searchTables()" class="bg-loft-brick hover:bg-loft-brickHover text-white font-bold py-3 px-10 rounded-full shadow-lg hover:shadow-loft-brick/30 hover:scale-105 transition-all duration-300">
+                        <i class="fas fa-search mr-2"></i> ค้นหาโต๊ะว่าง
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tables Section (Hidden initially) -->
+            <div id="tables-section" class="hidden transition-all duration-500 opacity-0 translate-y-4">
+                <h3 class="text-2xl font-bold text-white mb-6 border-l-4 border-loft-brick pl-4">ผังโต๊ะ <span id="tables-result-title" class="text-loft-brick text-lg ml-2 font-normal">(พบ 4 โต๊ะว่าง)</span></h3>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Table 1 -->
+                    <div onclick="selectTable('T1', 2, true)" class="bg-loft-card rounded-2xl p-6 border-2 border-green-500/50 hover:border-green-500 cursor-pointer transform hover:-translate-y-2 hover:shadow-[0_10px_20px_rgba(34,197,94,0.15)] transition-all text-center relative group">
+                        <div class="absolute top-4 right-4 w-3 h-3 bg-green-500 rounded-full animate-[pulse_2s_ease-in-out_infinite]"></div>
+                        <i class="fas fa-couch text-5xl text-green-400/80 mb-4 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="text-xl font-bold text-white">โต๊ะ T1</h4>
+                        <p class="text-sm text-loft-muted mt-1">สำหรับ 1-2 ท่าน</p>
+                        <span class="inline-block mt-4 text-xs font-bold uppercase tracking-wider bg-green-500/20 text-green-400 px-4 py-1.5 rounded-full">ว่าง</span>
+                    </div>
+
+                    <!-- Table 2 -->
+                    <div class="bg-loft-darker rounded-2xl p-6 border-2 border-gray-800 opacity-70 cursor-not-allowed text-center relative shadow-inner">
+                        <div class="absolute top-4 right-4 w-3 h-3 bg-gray-500 rounded-full"></div>
+                        <i class="fas fa-couch text-5xl text-gray-600 mb-4 block"></i>
+                        <h4 class="text-xl font-bold text-gray-500">โต๊ะ T2</h4>
+                        <p class="text-sm text-gray-600 mt-1">สำหรับ 3-4 ท่าน</p>
+                        <span class="inline-block mt-4 text-xs font-bold uppercase tracking-wider bg-gray-800 text-gray-400 px-4 py-1.5 rounded-full">มีผู้จองแล้ว</span>
+                    </div>
+
+                    <!-- Table 3 -->
+                    <div onclick="selectTable('T3', 4, true)" class="bg-loft-card rounded-2xl p-6 border-2 border-green-500/50 hover:border-green-500 cursor-pointer transform hover:-translate-y-2 hover:shadow-[0_10px_20px_rgba(34,197,94,0.15)] transition-all text-center relative group">
+                        <div class="absolute top-4 right-4 w-3 h-3 bg-green-500 rounded-full animate-[pulse_2s_ease-in-out_infinite]"></div>
+                        <i class="fas fa-couch text-5xl text-green-400/80 mb-4 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="text-xl font-bold text-white">โต๊ะ T3</h4>
+                        <p class="text-sm text-loft-muted mt-1">สำหรับ 3-4 ท่าน</p>
+                        <span class="inline-block mt-4 text-xs font-bold uppercase tracking-wider bg-green-500/20 text-green-400 px-4 py-1.5 rounded-full">ว่าง</span>
+                    </div>
+
+                    <!-- Table 4 -->
+                    <div onclick="selectTable('T4', 6, true)" class="bg-loft-card rounded-2xl p-6 border-2 border-green-500/50 hover:border-green-500 cursor-pointer transform hover:-translate-y-2 hover:shadow-[0_10px_20px_rgba(34,197,94,0.15)] transition-all text-center relative group">
+                        <div class="absolute top-4 right-4 w-3 h-3 bg-green-500 rounded-full animate-[pulse_2s_ease-in-out_infinite]"></div>
+                        <i class="fas fa-couch text-5xl text-green-400/80 mb-4 block group-hover:scale-110 transition-transform"></i>
+                        <h4 class="text-xl font-bold text-white">โต๊ะ T4</h4>
+                        <p class="text-sm text-loft-muted mt-1">สำหรับ 5-6 ท่าน</p>
+                        <span class="inline-block mt-4 text-xs font-bold uppercase tracking-wider bg-green-500/20 text-green-400 px-4 py-1.5 rounded-full">ว่าง</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Simple -->
+    <footer class="bg-loft-darker py-6 border-t border-loft-card text-center text-loft-muted text-sm">
+        <p>&copy; 2026 นมสด รสนิยม. All rights reserved.</p>
+    </footer>
+
+    <!-- Booking Form Modal -->
+    <div id="booking-modal" class="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-loft-card border border-loft-darker rounded-2xl w-full max-w-md overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] transform scale-95 opacity-0 transition-all duration-300" id="modal-content">
+            <div class="bg-loft-darker px-6 py-5 flex justify-between items-center border-b border-gray-800">
+                <h3 class="text-xl font-bold text-white">ยืนยันการจอง <span id="modal-table-name" class="text-loft-brick ml-1">โต๊ะ T1</span></h3>
+                <button onclick="closeModal()" class="text-gray-500 hover:text-white transition-colors bg-loft-dark w-8 h-8 rounded-full flex items-center justify-center"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="p-6">
+                <div class="bg-loft-dark rounded-xl p-5 mb-6 border border-gray-800 flex flex-col space-y-3 text-sm text-gray-300">
+                    <div class="flex items-center"><div class="w-8 flex justify-center"><i class="far fa-calendar-alt text-loft-muted text-lg"></i></div> <span class="text-loft-muted w-16">วันที่:</span> <span id="modal-date-val" class="font-medium text-white text-base"></span></div>
+                    <div class="flex items-center"><div class="w-8 flex justify-center"><i class="far fa-clock text-loft-muted text-lg"></i></div> <span class="text-loft-muted w-16">เวลา:</span> <span id="modal-time-val" class="font-medium text-white text-base"></span></div>
+                    <div class="flex items-center"><div class="w-8 flex justify-center"><i class="fas fa-user-friends text-loft-muted text-lg"></i></div> <span class="text-loft-muted w-16">จำนวน:</span> <span id="modal-pax-val" class="font-medium text-white text-base"></span></div>
+                </div>
+                
+                <form id="booking-form" class="space-y-5">
+                    <div>
+                        <label class="block text-sm font-medium text-loft-muted mb-1.5">ชื่อผู้จอง <span class="text-loft-brick">*</span></label>
+                        <input type="text" id="customer-name" required placeholder="เช่น คุณสมชาย" class="w-full bg-loft-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-loft-brick focus:ring-1 focus:ring-loft-brick transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-loft-muted mb-1.5">เบอร์โทรศัพท์ <span class="text-loft-brick">*</span></label>
+                        <input type="tel" id="customer-phone" required placeholder="08X-XXX-XXXX" class="w-full bg-loft-dark border border-gray-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-loft-brick focus:ring-1 focus:ring-loft-brick transition-all">
+                    </div>
+                    
+                    <div class="pt-4 flex gap-4">
+                        <button type="button" onclick="closeModal()" class="flex-1 py-3.5 px-4 bg-loft-dark hover:bg-gray-800 border border-gray-700 text-white rounded-xl font-bold transition-all">ยกเลิก</button>
+                        <button type="submit" class="flex-1 py-3.5 px-4 bg-loft-brick hover:bg-loft-brickHover text-white rounded-xl font-bold shadow-lg shadow-loft-brick/20 transition-all">ยืนยันการจอง</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-[70] bg-black/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-loft-card border border-green-500/30 rounded-2xl w-full max-w-sm overflow-hidden shadow-[0_0_60px_rgba(34,197,94,0.15)] text-center p-8 transform scale-95 opacity-0 transition-all duration-300" id="success-content">
+            <div class="w-24 h-24 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-6 relative">
+                <div class="absolute inset-0 border-2 border-green-500/30 rounded-full animate-ping"></div>
+                <i class="fas fa-check text-5xl text-green-500"></i>
+            </div>
+            <h2 class="text-3xl font-bold text-white mb-2">การจองสำเร็จ!</h2>
+            <p class="text-loft-muted mb-8">เราได้บันทึกที่นั่งของคุณเรียบร้อยแล้ว</p>
+            
+            <div class="bg-loft-dark rounded-xl p-6 mb-8 text-left border border-gray-800 shadow-inner relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-1 h-full bg-green-500"></div>
+                <p class="text-xs text-loft-muted uppercase tracking-wider mb-1">Booking ID</p>
+                <p class="text-2xl font-bold text-loft-brick mb-5" id="success-id">#B2049</p>
+                
+                <div class="space-y-3 text-sm text-gray-300">
+                    <p class="flex justify-between border-b border-gray-800 pb-2"><span>ชื่อผู้จอง:</span> <span class="font-bold text-white" id="success-name"></span></p>
+                    <p class="flex justify-between border-b border-gray-800 pb-2"><span>โต๊ะ:</span> <span class="font-bold text-white" id="success-table"></span></p>
+                    <p class="flex justify-between border-b border-gray-800 pb-2"><span>วันที่:</span> <span class="font-bold text-white" id="success-date"></span></p>
+                    <p class="flex justify-between"><span>เวลา:</span> <span class="font-bold text-white" id="success-time"></span></p>
+                </div>
+            </div>
+            
+            <button onclick="window.location.href='index.html'" class="w-full py-4 bg-white text-black hover:bg-gray-200 rounded-xl font-bold transition-all shadow-lg text-lg">
+                กลับสู่หน้าหลัก
+            </button>
+        </div>
+    </div>
+
+    <!-- Script for Logic -->
+    <script>
+        // Set today's date as default
+        document.addEventListener('DOMContentLoaded', () => {
+            const dateInput = document.getElementById('book-date');
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.value = today;
+            dateInput.min = today;
+            
+            const timeInput = document.getElementById('book-time');
+            timeInput.value = "18:00";
+        });
+
+        // Mobile menu toggle
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Search tables function
+        function searchTables() {
+            const date = document.getElementById('book-date').value;
+            const time = document.getElementById('book-time').value;
+            
+            if(!date || !time) {
+                alert("กรุณาเลือกวันที่และเวลา");
+                return;
+            }
+            
+            // Show tables section with animation
+            const section = document.getElementById('tables-section');
+            section.classList.remove('hidden');
+            
+            // Small delay to allow display:block to apply before animating opacity
+            setTimeout(() => {
+                section.classList.remove('opacity-0', 'translate-y-4');
+                section.classList.add('opacity-100', 'translate-y-0');
+            }, 50);
+            
+            // Scroll to tables
+            setTimeout(() => {
+                section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 100);
+        }
+
+        let currentTable = "";
+
+        // Select Table
+        function selectTable(tableName, pax, isAvailable) {
+            if(!isAvailable) return;
+            
+            currentTable = tableName;
+            
+            const date = document.getElementById('book-date').value;
+            const time = document.getElementById('book-time').value;
+            const paxText = document.getElementById('book-pax').options[document.getElementById('book-pax').selectedIndex].text;
+            
+            // Format date for display
+            const dateObj = new Date(date);
+            const thaiMonths = ["ม.ค.","ก.พ.","มี.ค.","เม.ย.","พ.ค.","มิ.ย.","ก.ค.","ส.ค.","ก.ย.","ต.ค.","พ.ย.","ธ.ค."];
+            const formattedDate = dateObj.getDate() + ' ' + thaiMonths[dateObj.getMonth()] + ' ' + (dateObj.getFullYear() + 543);
+            
+            document.getElementById('modal-table-name').innerText = tableName;
+            document.getElementById('modal-date-val').innerText = formattedDate || date;
+            document.getElementById('modal-time-val').innerText = time + ' น.';
+            document.getElementById('modal-pax-val').innerText = paxText;
+            
+            // Show Modal
+            const modal = document.getElementById('booking-modal');
+            const content = document.getElementById('modal-content');
+            modal.classList.remove('hidden');
+            
+            // trigger reflow
+            void modal.offsetWidth; 
+            
+            content.classList.remove('scale-95', 'opacity-0');
+            content.classList.add('scale-100', 'opacity-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('booking-modal');
+            const content = document.getElementById('modal-content');
+            
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('booking-form').reset();
+            }, 300);
+        }
+
+        // Handle Submit
+        document.getElementById('booking-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('customer-name').value;
+            const date = document.getElementById('modal-date-val').innerText;
+            const time = document.getElementById('modal-time-val').innerText;
+            
+            // Generate random booking ID
+            const randomId = Math.floor(1000 + Math.random() * 9000);
+            document.getElementById('success-id').innerText = "#B" + randomId;
+            document.getElementById('success-name').innerText = name;
+            document.getElementById('success-table').innerText = currentTable;
+            document.getElementById('success-date').innerText = date;
+            document.getElementById('success-time').innerText = time;
+            
+            // Hide booking modal
+            document.getElementById('booking-modal').classList.add('hidden');
+            
+            // Show Success modal
+            const successModal = document.getElementById('success-modal');
+            const successContent = document.getElementById('success-content');
+            successModal.classList.remove('hidden');
+            
+            void successModal.offsetWidth;
+            
+            successContent.classList.remove('scale-95', 'opacity-0');
+            successContent.classList.add('scale-100', 'opacity-100');
+        });
+    </script>
+</body>
+</html>
