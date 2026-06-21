@@ -344,11 +344,14 @@
                 <!-- Weather Widget -->
                 <div class="space-y-4">
                     <h4 data-i18n="foot-weather" class="text-xl font-bold text-white mb-6 border-l-4 border-loft-brick pl-3">สภาพอากาศ</h4>
-                    <div class="w-full bg-loft-card rounded-lg overflow-hidden border border-loft-card hover:border-loft-muted transition-colors" style="min-height: 190px;">
-                        <a class="weatherwidget-io" href="https://forecast7.com/th/15d23104d86/ubon-ratchathani/" data-label_1="อุบลราชธานี" data-label_2="สภาพอากาศ" data-font="Prompt" data-theme="dark" data-basecolor="#1e1e1e" data-accent="#c14a09" data-textcolor="#e0e0e0" data-highcolor="#c14a09" data-lowcolor="#9ca3af" >อุบลราชธานี สภาพอากาศ</a>
-                        <script>
-                        !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-                        </script>
+                    <div class="w-full bg-loft-card rounded-lg overflow-hidden border border-loft-card hover:border-loft-muted transition-colors flex flex-col justify-center items-center p-5 text-center" style="min-height: 190px;" id="weather-widget">
+                        <div id="weather-loading" class="text-loft-muted text-sm flex flex-col items-center justify-center h-full">
+                            <i class="fas fa-circle-notch fa-spin text-2xl text-loft-brick mb-3"></i>
+                            กำลังดึงข้อมูลอากาศ...
+                        </div>
+                        <div id="weather-content" class="hidden w-full">
+                            <!-- Populated by JS -->
+                        </div>
                     </div>
                 </div>
 
@@ -389,6 +392,61 @@
 
     <!-- Translations & Interactivity Script -->
     <script>
+        // Weather Widget Logic using Open-Meteo API
+        async function fetchWeather() {
+            try {
+                // พิกัดอุบลราชธานี
+                const response = await fetch('https://api.open-meteo.com/v1/forecast?latitude=15.23&longitude=104.86&current=temperature_2m,relative_humidity_2m,wind_speed_10m,precipitation&timezone=Asia/Bangkok');
+                if (!response.ok) throw new Error('API Error');
+                const data = await response.json();
+                
+                const temp = data.current.temperature_2m;
+                const rain = data.current.precipitation;
+                const wind = data.current.wind_speed_10m;
+                const humidity = data.current.relative_humidity_2m;
+                
+                let icon = '<i class="fas fa-sun text-yellow-500"></i>';
+                let statusText = 'ท้องฟ้าโปร่ง';
+                
+                if (rain > 0) {
+                    icon = '<i class="fas fa-cloud-showers-heavy text-blue-400"></i>';
+                    statusText = 'มีฝนตก';
+                } else if (temp >= 35) {
+                    icon = '<i class="fas fa-temperature-high text-red-500"></i>';
+                    statusText = 'อากาศร้อน';
+                } else if (temp <= 25) {
+                    icon = '<i class="fas fa-temperature-low text-blue-300"></i>';
+                    statusText = 'อากาศเย็นสบาย';
+                } else if (humidity > 70) {
+                    icon = '<i class="fas fa-cloud text-gray-400"></i>';
+                    statusText = 'มีเมฆมาก';
+                }
+                
+                document.getElementById('weather-loading').classList.add('hidden');
+                document.getElementById('weather-content').classList.remove('hidden');
+                
+                document.getElementById('weather-content').innerHTML = `
+                    <div class="text-4xl font-bold text-white mb-2 flex justify-center items-center gap-3">
+                        ${icon} <span>${Math.round(temp)}<span class="text-2xl text-loft-muted">°C</span></span>
+                    </div>
+                    <div class="text-sm font-medium text-loft-brick mb-4">${statusText}</div>
+                    <div class="grid grid-cols-2 gap-2 text-xs text-loft-muted bg-loft-darker p-2.5 rounded-lg border border-loft-dark">
+                        <div class="flex items-center justify-center" title="ความชื้นสัมพัทธ์"><i class="fas fa-tint mr-1.5 text-blue-400/70"></i> ${humidity}%</div>
+                        <div class="flex items-center justify-center" title="ความเร็วลม"><i class="fas fa-wind mr-1.5 text-gray-400"></i> ${wind} km/h</div>
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('weather-loading').innerHTML = `
+                    <div class="text-loft-muted">
+                        <i class="fas fa-exclamation-circle text-loft-brick text-2xl mb-2"></i><br>
+                        <span class="text-xs">เซิร์ฟเวอร์อากาศกำลังพักผ่อน 😴<br>แต่ร้านเราพร้อมเสิร์ฟเสมอ!</span>
+                    </div>
+                `;
+            }
+        }
+        document.addEventListener('DOMContentLoaded', fetchWeather);
+
+
         const translations = {
             th: {
                 "nav-home": "หน้าหลัก",
